@@ -6,7 +6,7 @@ Feature: This feature file would add the product to cart and purchase it
 
     @AddProducts @ProductPage
     Scenario: Add Products to cart and purchase them
-      Then User adds "" products to my cart
+      Then User adds "Backpack,Bike Light,Fleece Jacket" products to my cart
       And User Clicks on Cart Page
       And User Click on "CHECKOUT"
       And User provides "First Name","Last Name" and "Postal Code"

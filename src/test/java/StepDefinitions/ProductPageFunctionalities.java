@@ -1,15 +1,18 @@
 package StepDefinitions;
 
+import Locators.ProductPageLocators;
 import Screens.ProductScreens;
 import io.cucumber.java.en.*;
 
 public class ProductPageFunctionalities {
     ProductScreens productScreens=new ProductScreens();
 
+
     @Then("User adds {string} products to my cart")
     public void user_adds_products_to_my_cart(String string) {
         // Write code here that turns the phrase above into concrete actions
-        productScreens.userAddsProductsToMyCart();
+        productScreens.userAddsProductsToMyCart(string);
+
 
 
     }
