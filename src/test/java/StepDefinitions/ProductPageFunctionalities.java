@@ -2,10 +2,19 @@ package StepDefinitions;
 
 import Locators.ProductPageLocators;
 import Screens.ProductScreens;
+import Screens.ScreenshotUtil;
 import io.cucumber.java.en.*;
 
+import static StepDefinitions.BasePage.driver;
+
 public class ProductPageFunctionalities {
-    ProductScreens productScreens=new ProductScreens();
+    ScreenshotUtil screenshotUtil;
+    ProductScreens productScreens;
+    public ProductPageFunctionalities(ScreenshotUtil screenshotUtil) {
+        this.screenshotUtil = screenshotUtil;
+        this.productScreens = new ProductScreens(screenshotUtil);  // Pass to ProductScreens
+    }
+
 
 
     @Then("User adds {string} products to my cart")
@@ -19,10 +28,12 @@ public class ProductPageFunctionalities {
     @And("User Clicks on Cart Page")
     public void user_clicks_on_cart_page() {
         // Write code here that turns the phrase above into concrete actions
+
         
     }
     @And("User Click on {string}")
-    public void user_click_on(String string) {
+    public void user_click_on(String button) {
+        productScreens.userClickOnButton(button);
         // Write code here that turns the phrase above into concrete actions
         
     }
