@@ -55,7 +55,7 @@ public class ProductPageFunctionalities {
     @Then("Sort the products as {string}")
     public void sort_the_products_as(String string) {
         // Write code here that turns the phrase above into concrete actions
-        
+        productScreens.userSortsProducts(string);
     }
 
 }

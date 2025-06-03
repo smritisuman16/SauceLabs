@@ -22,4 +22,6 @@ public class ProductPageLocators {
     public List<WebElement> cartProductName;
     @FindBy (xpath="//h2[text()='THANK YOU FOR YOUR ORDER']")
     public WebElement verifyOrder;
+    @FindBy (xpath="//select[@class = 'product_sort_container']")
+    public WebElement sortProducts;
 }

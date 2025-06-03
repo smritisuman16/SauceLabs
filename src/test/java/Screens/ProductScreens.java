@@ -9,6 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import static StepDefinitions.BasePage.driver;
 
@@ -102,4 +103,20 @@ public class ProductScreens  {
     		System.out.println("Page Source is found Null.");
     	}
     }
+    
+    public void userSortsProducts(String sort) {
+    	try{
+    	Select s = new Select(locators.sortProducts);
+    	commonElements.waitForSeconds(2);
+    	s.selectByVisibleText(sort);
+    	screenshotUtil.takeScreenshot("Sorting is done by "+ sort);
+    }
+    	catch(NoSuchElementException e) {
+    		System.out.println("No Element found.");
+    	}
+
 }
+}
+
+
+	
