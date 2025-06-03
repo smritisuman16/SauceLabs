@@ -23,14 +23,11 @@ public class BasePage {
         if(browserName.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", "C:\\SAF\\drivers\\chromedriver.exe");
             driver = new ChromeDriver();
-            driver.manage().window().maximize();
         } else if (browserName.equalsIgnoreCase("edge")) {
             System.setProperty("webdriver.edge.driver", "C:\\SAF\\drivers\\msedgedriver.exe");
             driver = new EdgeDriver();
-            driver.manage().window().maximize();
-
         }
-
+        driver.manage().window().maximize();
     }
     @After
     public static void After(){

@@ -3,7 +3,11 @@ package Screens;
 import Locators.ProductPageLocators;
 import StepDefinitions.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import static StepDefinitions.BasePage.driver;
@@ -32,11 +36,70 @@ public class ProductScreens  {
     }
     public void userClickOnButton(String button){
         try{
-            driver.findElement(By.xpath("//button[text()='"+button+"']")).click();
+           WebElement element = driver.findElement(By.xpath("//*[text()='"+button+"' or @*='"+button+"']"));
+           ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+           commonElements.waitForSeconds(3);
+           element.click();
         } catch (Exception e) {
             System.out.println("Not able to click on "+button);
         }
         screenshotUtil.takeScreenshot("Click on "+button);
     }
+    
+	
+    public void userClicksOnCartPage() {
+		// TODO Auto-generated method stub
+		try{
+    		locators.cartImage.click();
+    		commonElements.waitForSeconds(5);
+    	}
+    	catch(NoSuchElementException e) {
+    		System.out.println("Element not found.");
+    	}
+    	catch(ElementClickInterceptedException e) {
+    		System.out.println("Not able to click on Element.");
+    	}
+    	screenshotUtil.takeScreenshot("Click on Cart Page");
+	}
 
+    public void userEntersDetails(String firstName, String lastName, String postalCode) {
+    	try{
+    		locators.firstName.sendKeys(firstName);
+    	locators.lastName.sendKeys(lastName);
+    	locators.postalCode.sendKeys(postalCode);
+    	screenshotUtil.takeScreenshot("User enters the details.");
+    }
+    	catch(NoSuchElementException e) {
+    		System.out.println("Element not found");
+    	}
+    }
+    
+    public void userVerifiesTheProducts() {
+    	try {
+    	System.out.println("Items added in the cart are: ");
+    	for(WebElement element: locators.cartProductName) {
+    	System.out.println(element.getText());
+    }
+    }
+    	catch(NoSuchElementException e)
+    	{
+    		System.out.println("Element not found");
+    	}
+    }
+
+    
+    public void userVerifiesOrderConfirmation() {
+    	try {
+    	if(driver.getPageSource().contains("THANK YOU FOR YOUR ORDER")) {
+    		System.out.println("Order is placed successfully.");
+    	}
+    	else {
+    		System.out.println("Order couldn't be placed, please try again.");
+    	}
+    	
+}
+    	catch(NullPointerException e) {
+    		System.out.println("Page Source is found Null.");
+    	}
+    }
 }

@@ -14,4 +14,5 @@ public class LoginPageLocators {
     public WebElement openMenuButton;
     @FindBy(xpath = "//*[text()='Logout']")
     public WebElement logoutButton;
+    
 }
