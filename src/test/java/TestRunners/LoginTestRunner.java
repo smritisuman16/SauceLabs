@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
         },
         monochrome = true,
         dryRun = false,
-        tags= "@Sort"
+        tags= "@AddProducts"
 )
 public class LoginTestRunner {
 

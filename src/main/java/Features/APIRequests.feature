@@ -31,3 +31,18 @@ Feature: This page includes all the scenarios to execute API Requests
     Examples:
       | Request Name | Data                    |
       | Put          | morpheus,zion assistant |
+
+
+  @PATCH_API @APIRequests
+  Scenario Outline: Trigger Patch Request
+    Then I trigger PATCH request for below
+      | <Request Name> | <Data> |
+    And I validate response
+    Examples:
+      | Request Name | Data             |
+      | Patch        | morpheus,plumber |
+
+    @Delete_API @APIRequests
+      Scenario: Trigger Delete Request
+      Then I trigger delete request for "DELETE"
+      And I validate response

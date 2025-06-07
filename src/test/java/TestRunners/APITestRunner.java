@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber-reports/Cucumber.json",
                 "timeline:target/test-output-thread/"
         },
-        monochrome = true,
+        monochrome = false,
         dryRun = false,
         tags= "@APIRequests"
 )

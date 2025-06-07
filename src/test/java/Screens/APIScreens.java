@@ -1,17 +1,15 @@
 package Screens;
 
-import StepDefinitions.BasePage;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.builder.RequestSpecBuilder;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
 public class APIScreens {
-    ScreenshotUtil screenshotUtil=new ScreenshotUtil();
+    ScreenshotUtil screenshotUtil;
     public APIScreens(ScreenshotUtil screenshotUtil){
         this.screenshotUtil = screenshotUtil;
     }
@@ -19,7 +17,7 @@ public class APIScreens {
     Response response;
     public void iSetRequestSpecificationsWithApiKey(String apiKey) {
          requestSpecification= new RequestSpecBuilder().setBaseUri("https://reqres.in/")
-                 .addHeader("x-api-key","reqres-free-v1")
+                 .addHeader("x-api-key",apiKey)
                  .build()
                 ;
 
@@ -27,7 +25,7 @@ public class APIScreens {
     }
 
     public void iTriggerGetReqestFor(String endPoint) {
-        String endPointURL=null;
+        String endPointURL;
         switch (endPoint) {
             case "List users":
                 endPointURL = "/api/users?page=2";
@@ -82,6 +80,34 @@ public class APIScreens {
     public void validateResponse() {
         System.out.println("Status code received for the response "+response.getStatusCode());
         System.out.println("JSON Response Body received for the response"+response.getBody().prettyPrint());
-        screenshotUtil.addDataInPDF("Response of the Request triggered is  \n"+response.asPrettyString());
+        screenshotUtil.addDataInPDF("Response Code for the request "+response.getStatusCode()+"\n"+
+                "Response of the Request triggered is  \n"+response.asPrettyString());
+    }
+
+    public void iTriggerPatchRequestFor(String endPoint, String data) {
+        String endPointURL=null;
+        HashMap<String,String> body=new HashMap<>();
+        if(endPoint.equals("Patch")) {
+            endPointURL = "/api/users/2";
+            body.put("name", data.split(",")[0]);
+            body.put("job", data.split(",")[1]);
+        }
+        response=given()
+                .spec(requestSpecification)
+                .when()
+                .body(body).patch(endPointURL);
+        screenshotUtil.addDataInPDF("Patch Request is triggered for "+endPoint);
+    }
+
+    public void iTriggerDeleteRequestFor(String endPoint) {
+        String endPointURL=null;
+        if(endPoint.equals("DELETE")) {
+            endPointURL = "/api/users/2";
+        }
+        response=given()
+                .spec(requestSpecification)
+                .when()
+                .delete(endPointURL);
+        screenshotUtil.addDataInPDF("Delete Request is triggered for "+endPoint);
     }
 }

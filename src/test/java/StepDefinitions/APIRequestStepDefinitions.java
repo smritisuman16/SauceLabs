@@ -2,7 +2,10 @@ package StepDefinitions;
 
 import Screens.APIScreens;
 import Screens.ScreenshotUtil;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
+
+import java.util.List;
 
 public class APIRequestStepDefinitions {
     ScreenshotUtil screenshotUtil;
@@ -41,5 +44,25 @@ public class APIRequestStepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         apiScreens.iTriggerPutRequestFor(endPoint,data);
     }
+    @Then("I trigger PATCH request for below")
+    public void i_trigger_patch_request_for_below(DataTable dataTable) {
+        // Write code here that turns the phrase above into concrete actions
+        // For automatic transformation, change DataTable to one of
+        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
+        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
+        // Double, Byte, Short, Long, BigInteger or BigDecimal.
+        //
+        // For other transformations you can register a DataTableType.
+        List<List<String>> dataTableList=dataTable.asLists(String.class);
+        String endPoint= dataTableList.get(0).get(0);
+        String data= dataTableList.get(0).get(1);
+        apiScreens.iTriggerPatchRequestFor(endPoint,data);
 
+
+    }
+
+    @Then("I trigger delete request for {string}")
+    public void iTriggerDeleteRequestFor(String arg0) {
+       apiScreens.iTriggerDeleteRequestFor(arg0);
+    }
 }
