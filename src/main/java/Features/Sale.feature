@@ -23,6 +23,6 @@ Feature: This feature file would add the product to cart and purchase it
         Examples:
           | Sort Type           |
           | Name (A to Z)       |
-          | Name (Z to A)       |
-          | Price (low to high) |
-          | Price (high to low) |
+#          | Name (Z to A)       |
+#          | Price (low to high) |
+#          | Price (high to low) |

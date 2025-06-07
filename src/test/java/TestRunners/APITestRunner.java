@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
         },
         monochrome = false,
         dryRun = false,
-        tags= "@APIRequests"
+        tags= "@POST_API"
 )
 public class APITestRunner {
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 
 public class APIScreens {
-    ScreenshotUtil screenshotUtil;
+    private final ScreenshotUtil screenshotUtil;
     public APIScreens(ScreenshotUtil screenshotUtil){
         this.screenshotUtil = screenshotUtil;
     }

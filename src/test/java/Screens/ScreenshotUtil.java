@@ -37,6 +37,10 @@ public class ScreenshotUtil {
 
 
     public void initializePDF(Scenario scenario) {
+        File folder=new File("test-output");
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
         pdfPath = "test-output/" + scenario.getName().replaceAll("\\s+", "_") + "_" + formatter.format(new Date()) + ".pdf";
         try {
             PdfWriter writer = new PdfWriter(pdfPath);
