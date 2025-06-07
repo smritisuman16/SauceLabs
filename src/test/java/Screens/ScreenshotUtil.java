@@ -3,11 +3,14 @@ package Screens;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.TextAlignment;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -36,6 +39,12 @@ public class ScreenshotUtil {
             PdfWriter writer = new PdfWriter(pdfPath);
             pdf = new PdfDocument(writer);
             document = new Document(pdf);
+            document.add(new Paragraph(scenario.getName())
+                    .setBold()
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setUnderline().
+                    setStrokeColor(ColorConstants.BLUE)
+                    .setBackgroundColor(ColorConstants.YELLOW));
             System.out.println("PDF Report Initialized: " + pdfPath);
         } catch (IOException e) {
             System.out.println("Error in Initializing PDF");
@@ -44,8 +53,12 @@ public class ScreenshotUtil {
 
     }
 
-    public void closePDF(){
+    public void closePDF(Scenario scenario){
         try {
+            if(!scenario.isFailed())
+                document.add(new Paragraph("Scenario is passed with no errors").setBold().setBackgroundColor(ColorConstants.GREEN));
+            else
+                document.add(new Paragraph("Scenario is failed with errors").setBold().setBackgroundColor(ColorConstants.RED));
             if (document != null) {
                 document.close();
                 pdf.close();
@@ -78,10 +91,23 @@ public class ScreenshotUtil {
                 System.out.println("Document is not initialized. Screenshot will not be added to PDF.");
                 return;
             }
-            document.add(new Paragraph(scenarioName).setBold());
+            document.add(new Paragraph(scenarioName));
             document.add(img);
 
             System.out.println("Screenshot captured & added to PDF: " + scenarioName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void addDataInPDF(String data) {
+        try {
+
+            if (document == null) {
+                System.out.println("Document is not initialized. Screenshot will not be added to PDF.");
+                return;
+            }
+            document.add(new Paragraph(data));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

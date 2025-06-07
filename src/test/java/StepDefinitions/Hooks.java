@@ -18,8 +18,8 @@ public class Hooks {
     }
 
     @After
-    public void after() {
-        screenshotUtil.closePDF();
+    public void after(Scenario scenario) {
+        screenshotUtil.closePDF(scenario);
     }
 }
 
